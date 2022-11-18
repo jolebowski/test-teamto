@@ -6,3 +6,9 @@
   margin-right: auto;
   margin-left: auto;
 }
+
+.search-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

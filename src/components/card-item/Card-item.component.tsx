@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./card-item.styles.css";
 
 type CardItemProps = {
@@ -11,7 +13,9 @@ const CardItem = ({ id, imageUrl, name, type }: CardItemProps) => {
   return (
     <div>
       <div className="characterCard">
-        <img className="characterImg" src={imageUrl} alt={name} />
+        <Link to={`/${type}/${id}`}>
+          <img className="characterImg" src={imageUrl} alt={name} />
+        </Link>
         <h3 className="title_list_item">{name}</h3>
       </div>
     </div>
