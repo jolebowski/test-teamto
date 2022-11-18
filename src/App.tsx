@@ -1,7 +1,13 @@
 import Header from "./components/header/Header.component";
+import Home from "./routes/home/home";
 
 const App = () => {
-  return <Header />;
+  return (
+    <>
+      <Header />;
+      <Home />
+    </>
+  );
 };
 
 export default App;

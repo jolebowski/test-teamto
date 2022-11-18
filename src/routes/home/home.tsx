@@ -1,0 +1,58 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CardItem from "../../components/card-item/Card-item.component";
+import { api } from "../../Api/api";
+import { setCharacter } from "../../store/character/character.action";
+import { selectCharacter } from "../../store/character/character.selector";
+import "./home.styles.css";
+
+const Home = () => {
+  const dispatch = useDispatch();
+  const characters = useSelector(selectCharacter);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await api.get(`people/?page=${1}`);
+      const returnedData = await response.data;
+
+      dispatch(setCharacter(returnedData.results));
+      setIsLoading(false);
+    };
+    setIsLoading(true);
+    getData();
+  }, []);
+
+  const getUrlId = (url: string) => {
+    const splitedUrl = url.split("/");
+    const characterId = splitedUrl[splitedUrl.length - 2];
+    return characterId;
+  };
+
+  return (
+    <div className="charactersList">
+      {isLoading ? (
+        <div className="loading">
+          <span style={{ color: "#ffe81f" }}>Chargement en cours...</span>
+        </div>
+      ) : (
+        characters.character.map((character) => {
+          const { url, name } = character;
+          return (
+            <CardItem
+              imageUrl={`https://starwars-visualguide.com/assets/img/characters/${getUrlId(
+                url
+              )}.jpg`}
+              name={name}
+              key={name}
+              id={getUrlId(url)}
+              type="characters"
+            />
+          );
+        })
+      )}
+    </div>
+  );
+};
+
+export default Home;
