@@ -1,5 +1,5 @@
 import { useEffect, useState, ChangeEvent } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CardItem from "../../components/card-item/Card-item.component";
 import SearchBox from "../../components/search-box/search-box";
 import { api } from "../../Api/api";
@@ -8,6 +8,7 @@ import { selectCharacter } from "../../store/character/character.selector";
 import "./home.styles.css";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const characters = useSelector(selectCharacter);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [inputSearch, setInputSearch] = useState<string>("");
